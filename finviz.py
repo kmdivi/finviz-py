@@ -5,8 +5,6 @@ import requests
 import sys
 from pyppeteer import launch
 
-URL = sys.argv[1]
-filename = 'finviz.png'
 ini_file = 'settings.json'
 TOKEN = ''
 CHANNEL = ''
@@ -31,14 +29,39 @@ def upload_to_slack(filename):
             'channels':CHANNEL,
             'filename':"filename",
             'initial_comment': str(dt),
-            'title': "finviz"
+            'title': filename
             }
     requests.post(url="https://slack.com/api/files.upload",params=param, files=files)
 
 
+def check_args(argv):
+    if len(argv) >= 1:
+        return True
+    else:
+        return False
+
+
+def get_filename(URL):
+    filename = URL[URL.index('/')+1:]
+    filename = filename[filename.index('/')+1:]
+    filename = filename[:filename.index('.')] + '.png'
+    return filename
+
+
 async def main():
+    has_url = check_args(sys.argv)
+    if not has_url:
+        print("Input url to take screenshot.")
+        exit(0)
+
+    URL = sys.argv[1]
+    filename = get_filename(sys.argv[1])
+
+    UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"
+
     browser = await launch()
     page = await browser.newPage()
+    await page.setUserAgent(UA)
     await page.goto(URL)
     await page.screenshot({'path': filename, 'fullPage': True})
     await browser.close()
