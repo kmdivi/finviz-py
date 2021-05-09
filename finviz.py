@@ -1,19 +1,20 @@
 import asyncio
 import datetime
 import json
-import requests
 import sys
+
+import requests
 from pyppeteer import launch
 
-ini_file = 'settings.json'
-TOKEN = ''
-CHANNEL = ''
+ini_file = "settings.json"
+TOKEN = ""
+CHANNEL = ""
 
 
-def load_json(filename='settings.json'):
+def load_json(filename="settings.json"):
     global TOKEN
     global CHANNEL
-    json_file = open(filename, 'r')
+    json_file = open(filename, "r")
     json_data = json.load(json_file)
     TOKEN = json_data["token"]
     CHANNEL = json_data["channel"]
@@ -23,15 +24,15 @@ def upload_to_slack(filename):
     global TOKEN
     global CHANNEL
     dt = datetime.datetime.now()
-    files = {'file': open(filename, 'rb')}
+    files = {"file": open(filename, "rb")}
     param = {
-            'token':TOKEN, 
-            'channels':CHANNEL,
-            'filename':"filename",
-            'initial_comment': str(dt),
-            'title': filename
-            }
-    requests.post(url="https://slack.com/api/files.upload",params=param, files=files)
+        "token": TOKEN,
+        "channels": CHANNEL,
+        "filename": "filename",
+        "initial_comment": str(dt),
+        "title": filename,
+    }
+    requests.post(url="https://slack.com/api/files.upload", params=param, files=files)
 
 
 def check_args(argv):
@@ -42,9 +43,9 @@ def check_args(argv):
 
 
 def get_filename(URL):
-    filename = URL[URL.index('/')+1:]
-    filename = filename[filename.index('/')+1:]
-    filename = filename[:filename.index('.')] + '.png'
+    filename = URL[URL.index("/") + 1 :]
+    filename = filename[filename.index("/") + 1 :]
+    filename = filename[: filename.index(".")] + ".png"
     return filename
 
 
@@ -63,7 +64,7 @@ async def main():
     page = await browser.newPage()
     await page.setUserAgent(UA)
     await page.goto(URL)
-    await page.screenshot({'path': filename, 'fullPage': True})
+    await page.screenshot({"path": filename, "fullPage": True})
     await browser.close()
 
     load_json(ini_file)
