@@ -43,10 +43,12 @@ def check_args(argv):
 
 
 def get_filename(URL):
-    filename = URL[URL.index("/") + 1 :]
-    filename = filename[filename.index("/") + 1 :]
-    filename = filename[: filename.index(".")] + ".png"
-    return filename
+    filename = URL[URL.index("/") + 2 :]
+    if "www." in filename:
+        filename = filename.replace("www.", "")
+    filename = filename[: filename.index(".")]
+
+    return filename + ".png"
 
 
 async def main():
