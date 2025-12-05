@@ -22,9 +22,9 @@ requests==2.25.1; (python_version >= "2.7" and python_full_version < "3.0.0") or
 tqdm==4.60.0; python_full_version >= "3.6.1" and python_full_version < "4.0.0" \
     --hash=sha256:daec693491c52e9498632dfbe9ccfc4882a557f5fa08982db1b4d3adbe0887c3 \
     --hash=sha256:ebdebdb95e3477ceea267decfc0784859aa3df3e27e22d23b83e9b272bf157ae
-urllib3==1.26.4; python_full_version >= "3.6.1" and python_version < "4" and python_full_version < "4.0.0" \
-    --hash=sha256:2f4da4594db7e1e110a944bb1b551fdf4e6c136ad42e4234131391e21eb5b0df \
-    --hash=sha256:e7b021f7241115872f92f43c6508082facffbd1c048e3c6e2bb9c2a157e28937
+urllib3==2.6.0; python_full_version >= "3.6.1" and python_version < "4" and python_full_version < "4.0.0" \
+    --hash=sha256:c90f7a39f716c572c4e3e58509581ebd83f9b59cced005b7db7ad2d22b0db99f \
+    --hash=sha256:cb9bcef5a4b345d5da5d145dc3e30834f58e8018828cbc724d30b4cb7d4d49f1
 websockets==8.1; python_full_version >= "3.6.1" and python_full_version < "4.0.0" \
     --hash=sha256:3762791ab8b38948f0c4d281c8b2ddfa99b7e510e46bd8dfa942a5fff621068c \
     --hash=sha256:3db87421956f1b0779a7564915875ba774295cc86e81bc671631379371af1170 \
